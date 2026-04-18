@@ -1,0 +1,73 @@
+# Technical Master Document (TMD)
+
+## Architecture
+My Bingo Mixer is a single-page web application built on:
+- React for UI rendering
+- TypeScript for static typing and safety
+- Vite for fast development and build tooling
+
+The app is structured as a simple component tree with a single main entry point (`src/App.tsx`) and supporting styling in `src/style.css`.
+
+## Components
+- `src/main.tsx`: application bootstrap and root rendering
+- `src/App.tsx`: the primary app component containing game logic, prompt input, and card UI
+- `src/style.css`: theme styles and responsive layout
+
+## State and Behavior
+### Game state
+- `prompts`: deck of prompt strings
+- `card`: current 5x5 bingo card content
+- `selected`: boolean state for each square, including pre-marked free space
+- `lastShuffled`: timestamp for the latest card mix
+- `customPrompt`: user input for new prompts
+
+### Business logic
+- `buildCard(prompts)`: generates a new randomized bingo card with a center free space
+- `toggleCell(index)`: marks or unmarks a card cell during play
+- `bingoLines`: computed win patterns for rows, columns, diagonals, and future four-corners support
+
+## Persistence
+The app stores state in `localStorage` to preserve:
+- prompt deck
+- current card configuration
+- selected tiles
+- last shuffle timestamp
+
+## Test gate and CI
+A workspace-scoped stop hook has been added at `.github/hooks/stop-test-gate.json`.
+- It runs `npm test` before an agent completes.
+- `npm test` currently runs `npm run build`.
+
+### Build and validation scripts
+- `npm run dev`: start local development server
+- `npm run build`: compile TypeScript and build production assets
+- `npm run preview`: preview production build locally
+- `npm run lint`: lint source files
+- `npm run typecheck`: run TypeScript type checking
+- `npm test`: execute the build as the safety gate
+
+## Deployment
+The application is configured for GitHub Pages deployment via `.github/workflows/pages.yml`.
+
+A Docker deployment flow is now available with `Dockerfile`, `.dockerignore`, and `docker-compose.yml`.
+A GitHub Actions workflow for Azure container deployment is also included at `.github/workflows/azure-container-deploy.yml`.
+
+## Lima VM support
+A Lima VM configuration is available in `lima/default.yaml` for optional local development using Ubuntu-based VMs. The environment installs Node.js, Docker, and Podman, and forwards port `4173` for the Vite dev server.
+
+## Extension points
+### New features
+- Add new bingo patterns such as Four Corners with TDD-backed tests
+- Add a dedicated play mode UI / card draw UX
+- Add share/export of card decks
+- Add multi-theme prompt decks and selection controls
+
+### Custom agents and automation
+- `.github/agents/quiz-master.agent.md`: custom Quiz Master agent prompt for generating Bingo quiz content
+- `.github/instructions/design-guide.instructions.md`: design-first guidance for UI work
+
+## Open Source and Documentation
+This document aims to be a technical anchor for contributors.
+- keep explanations clear and concrete
+- link feature goals to implementation details
+- keep the repository easy to navigate for developers and reviewers

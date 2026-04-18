@@ -1,0 +1,8 @@
+{
+  "name": "stop-test-gate",
+  "description": "Run npm test and block agent completion if tests do not pass.",
+  "stage": "stop",
+  "event": "stop",
+  "command": "npm test",
+  "continueOnError": false
+}

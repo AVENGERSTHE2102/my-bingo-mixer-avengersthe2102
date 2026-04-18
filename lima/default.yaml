@@ -1,0 +1,30 @@
+# Lima VM configuration for my-bingo-mixer
+# Use this file to start a local Ubuntu VM with Node.js, Docker, and Podman.
+
+name: my-bingo-mixer
+arch: "x86_64"
+image:
+  location: "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
+
+mounts:
+  - location: "/home/lima"
+    writable: true
+
+provision:
+  - mode: system
+    script: |
+      set -eux
+      apt-get update
+      apt-get install -y curl ca-certificates git build-essential ssh
+      curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+      apt-get install -y nodejs
+      npm install -g npm
+      apt-get install -y podman
+      curl -fsSL https://get.docker.com | sh || true
+      systemctl enable ssh
+      systemctl start ssh
+
+# Forward the app port so the dev server can be accessed from the host.
+portForwards:
+  - guestPort: 4173
+    hostPort: 4173

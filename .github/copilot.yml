@@ -1,0 +1,17 @@
+# GitHub Copilot workspace instructions for my-bingo-mixer
+
+instructions:
+  - This repository is a React + TypeScript web app built with Vite.
+  - The app is a Bingo Mixer game with a 5x5 card grid and center free space.
+  - Users should be able to shuffle prompts, reset the deck, and add custom challenges.
+  - The app also supports interactive tile marking, bingo line detection, and persistence in local storage.
+  - The current redesign should feel neon cyberpunk with glass surfaces, motion, and a polished visual system.
+  - Preserve the Vite structure, React conventions, and accessibility semantics.
+  - Prefer lightweight styling and maintain clean, maintainable component state.
+  - Use npm scripts: dev, build, preview, lint, typecheck.
+  - Add gameplay improvements, deployment readiness, and high-quality user feedback.
+
+checklist:
+  - lint
+  - build
+  - typecheck
